@@ -1,15 +1,15 @@
 {
   "name": "node-http-server",
   "version": "1.0.0",
-  "description": "Node.js example server starter project",
-  "main": "src/index.js",
+  "description": "Tutorial 1",
+  "main": "src/ejemplo1_1.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/ejemplo1_1.js"
   },
   "dependencies": {},
   "devDependencies": {
     "nodemon": "1.18.4",
-    "fastify": "3.2"
+	"express": "latest"
   },
   "keywords": []
 }
