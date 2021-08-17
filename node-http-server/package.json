@@ -8,7 +8,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "nodemon": "1.18.4"
+    "nodemon": "1.18.4",
+    "fastify: "3.2"
   },
   "keywords": []
 }
