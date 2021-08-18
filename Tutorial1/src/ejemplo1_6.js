@@ -36,7 +36,8 @@ function respondNotFound (req, res) {
 
 const fs = require('fs')
 const express = require('express')
-const port = process.env.PORT || 1337 const app = express()
+const port = process.env.PORT || 1337 
+const app = express()
 app.get('/', respondText)
 app.get('/json', respondJson)
 app.get('/echo', respondEcho)
