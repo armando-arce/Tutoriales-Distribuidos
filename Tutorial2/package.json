@@ -1,0 +1,18 @@
+{
+  "name": "node-rest-serveer",
+  "version": "1.0.0",
+  "description": "Tutorial 2",
+  "main": "src/ejemplo2_5.js",
+  "scripts": {
+     "start": "nodemon src/ejemplo2_5.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "1.18.4",
+	"express": "latest"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "keywords": []
+}
