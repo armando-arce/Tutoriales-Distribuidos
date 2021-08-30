@@ -1,0 +1,20 @@
+{
+  "name": "node-grpc-serveer",
+  "version": "1.0.0",
+  "description": "Tutorial 3",
+  "main": "src/ejemplo3_1.js",
+  "scripts": {
+     "start": "nodemon src/ejemplo3_1.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "1.18.4",
+	"express": "latest",
+	"@grpc/grpc-js": "latest",
+	"@grpc/proto-loader": "latest"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "keywords": []
+}
