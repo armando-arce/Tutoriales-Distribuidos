@@ -39,7 +39,7 @@ app.get('/book/:id', (req, res) => {
 app.post('/book/:id', (req, res) => {
     // Reading id from the URL
     const id = parseInt(req.params.id)
-    const newBook = req.body
+    const newBook = JSON.stringify(req.body)
 
     // Update item to the books array
     for (let i = 0; i < books.length; i++) {
