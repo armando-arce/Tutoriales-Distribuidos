@@ -1,7 +1,7 @@
 // ejemplo2_3.js
 const fs = require('fs')
 const express = require('express')
- 
+
 const app = express()
 app.use(express.json())
 const port = process.env.PORT || 1337
@@ -39,7 +39,7 @@ app.get('/book/:id', (req, res) => {
 
 app.post('/book/:id', (req, res) => {
     // Reading id from the URL
-    const id = parseInt(req.params.id)
+    const id = parseInt(req.params.id) 
     const newBook = req.body
 
     // Update item to the books array

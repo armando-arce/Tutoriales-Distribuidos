@@ -4,12 +4,11 @@
   "description": "Tutorial 2",
   "main": "src/ejemplo2_5.js",
   "scripts": {
-     "start": "nodemon src/ejemplo2_5.js"
+    "start": "nodemon src/ejemplo2_5.js"
   },
-  "dependencies": {},
   "devDependencies": {
-    "nodemon": "1.18.4",
-	"express": "latest"
+    "express": "^4.17.1",
+    "nodemon": "1.18.4"
   },
   "engines": {
     "node": "14.x"

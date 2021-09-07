@@ -2,7 +2,7 @@
 const fs = require('fs')
 const grpc = require('@grpc/grpc-js');
 const loader = require('@grpc/proto-loader');
-const pkg_def = loader.loadSync(__dirname + 'grpc-book.proto');
+const pkg_def = loader.loadSync(__dirname + '/' + 'grpc-book.proto');
 const book = grpc.loadPackageDefinition(pkg_def).book;
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = process.env.PORT || 4000;
