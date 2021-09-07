@@ -1,34 +1,24 @@
-const grpc = require('@grpc/grpc-js')
-const loader = require('@grpc/proto-loader')
-const pkg_def = loader.loadSync(__dirname +
-  '/grpc-recipe.proto')
-const recipe = grpc.loadPackageDefinition(pkg_def).recipe
-const HOST = process.env.HOST || '127.0.0.1'
-const PORT = process.env.PORT || 4000
-const server = new grpc.Server()
-server.addService(recipe.RecipeService.service, {
-  getMetaData: (_call, cb) => {
-    cb(null, {
-      pid: process.pid,
-    });
-  },
-  getRecipe: (call, cb) => {
-if (call.request.id !== 42) {
-      return cb(new Error(`unknown recipe ${call.request.id}`));
+// ejemplo3_2.js
+const util = require('util');
+const server = require('express')();
+const grpc = require('@grpc/grpc-js');
+const loader = require('@grpc/proto-loader');
+const pkg_def = loader.loadSync(__dirname + 'grpc-book.proto');
+const book = grpc.loadPackageDefinition(pkg_def).book;
+const HOST = '127.0.0.1';
+const PORT = process.env.PORT || 3000;
+const TARGET = process.env.TARGET || 'localhost:4000';
+const client = new book.BookService(
+  TARGET,
+  grpc.credentials.createInsecure()
+);
+const getBook = util.promisify(client.getBook.bind(client));
+server.get('/', async () => {
+  const book = getBook({id: 42});
+  return {
+    consumer_pid: process.pid,
+    producer_data: book
+}; });
+server.listen(PORT, HOST, () => {
+  console.log(`Consumer running at http://${HOST}:${PORT}/`);
 }
-cb(null, {
-      id: 42, name: "Chicken Tikka Masala",
-      steps: "Throw it in a pot...",
-      ingredients: [
-        { id: 1, name: "Chicken", quantity: "1 lb", },
-        { id: 2, name: "Sauce", quantity: "2 cups", }
-      ]
-}); },
-});
-server.bindAsync(`${HOST}:${PORT}`,
-  grpc.ServerCredentials.createInsecure(),
-  (err, port) => {
-    if (err) throw err;
-    server.start();
-    console.log(`Producer running at http://${HOST}:${port}/`);
-})

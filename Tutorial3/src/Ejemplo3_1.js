@@ -1,29 +1,30 @@
-const grpc = require('@grpc/grpc-js')
-const loader = require('@grpc/proto-loader')
-const pkg_def = loader.loadSync(__dirname +
-  '/grpc-recipe.proto')
-const recipe = grpc.loadPackageDefinition(pkg_def).recipe
-const HOST = process.env.HOST || '127.0.0.1'
-const PORT = process.env.PORT || 4000
-const server = new grpc.Server()
-server.addService(recipe.RecipeService.service, {
-  getMetaData: (_call, cb) => {
-    cb(null, {
-      pid: process.pid,
-    });
-  },
-  getRecipe: (call, cb) => {
-if (call.request.id !== 42) {
-      return cb(new Error(`unknown recipe ${call.request.id}`));
+// ejemplo3_1.js
+const fs = require('fs')
+const grpc = require('@grpc/grpc-js');
+const loader = require('@grpc/proto-loader');
+const pkg_def = loader.loadSync(__dirname + 'grpc-book.proto');
+const book = grpc.loadPackageDefinition(pkg_def).book;
+const HOST = process.env.HOST || '127.0.0.1';
+const PORT = process.env.PORT || 4000;
+const server = new grpc.Server();
+
+let books = []
+
+const loadBooks = () => {
+  fs.readFile(__dirname + '/' + 'books.json', 'utf8', (err, data) => {
+    books = JSON.parse(data)
+  });
 }
-cb(null, {
-      id: 42, name: "Chicken Tikka Masala",
-      steps: "Throw it in a pot...",
-      ingredients: [
-        { id: 1, name: "Chicken", quantity: "1 lb", },
-        { id: 2, name: "Sauce", quantity: "2 cups", }
-      ]
-}); },
+loadBooks()
+
+server.addService(book.BookService.service, {
+  getBook: (call, cb) => {
+    let book = find(book => book.id == call.request.id);
+    if (book == undefined)
+      return cb(new Error(`unknown book ${call.request.id}`));
+    else
+      cb(null, book);
+  }
 });
 server.bindAsync(`${HOST}:${PORT}`,
   grpc.ServerCredentials.createInsecure(),
@@ -31,4 +32,4 @@ server.bindAsync(`${HOST}:${PORT}`,
     if (err) throw err;
     server.start();
     console.log(`Producer running at http://${HOST}:${port}/`);
-})
+});
