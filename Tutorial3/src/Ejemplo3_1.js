@@ -19,7 +19,7 @@ loadBooks()
 
 server.addService(book.BookService.service, {
   getBook: (call, cb) => {
-    let book = find(book => book.id == call.request.id);
+    let book = books.find(book => book.id == call.request.id);
     if (book == undefined)
       return cb(new Error(`unknown book ${call.request.id}`));
     else

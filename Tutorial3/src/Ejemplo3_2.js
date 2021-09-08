@@ -14,7 +14,10 @@ const client = new book.BookService(
 );
 const getBook = util.promisify(client.getBook.bind(client));
 app.get('/', (req,res) => {
-  const book = getBook({id: 1})
-  res.json(book)
+	Promise.resolve(getBook({id: 1})).then(book => {
+	  res.json(book)
+	}).catch(reason => {
+	  console.log(reason)
+	});
 })
 app.listen(port, () => console.log(`Server listening on port ${port}`))
