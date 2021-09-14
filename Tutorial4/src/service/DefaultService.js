@@ -1,5 +1,16 @@
 'use strict';
 
+const fs = require('fs');
+
+let books = [];
+
+const loadBooks = () => {
+  fs.readFile(__dirname + '/' + 'books.json', 'utf8', (err, data) => {
+    books = JSON.parse(data)
+  });
+}
+
+loadBooks();
 
 /**
  * Delete a book by ID.
@@ -13,7 +24,6 @@ exports.booksBookIdDELETE = function(bookId) {
   });
 }
 
-
 /**
  * Returns a book by ID.
  *
@@ -22,22 +32,11 @@ exports.booksBookIdDELETE = function(bookId) {
  **/
 exports.booksBookIdGET = function(bookId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "copyright" : "2015",
-  "pages" : "1054",
-  "author" : "Silbertzhz",
-  "edition" : "4th",
-  "publisher" : "Mc Graw Hill",
-  "language" : "ENGLISH",
-  "title" : "Database System",
-  "bookId" : "book01"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    let book = books.find(book => book.id == bookId);
+    if (book == undefined)
+      return resolve();
+    else
+     resolve(book);
   });
 }
 
