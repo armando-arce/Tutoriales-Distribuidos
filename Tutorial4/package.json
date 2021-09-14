@@ -2,20 +2,17 @@
   "name": "open-api-server",
   "version": "1.0.0",
   "description": "Tutorial 4",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-	"prestart": "npm install",
-	"start": "nodemon index.js"
+    "start": "nodemon src/index.js"
   },
-  "keywords": [
-    "swagger"
-  ],
+  "keywords": ["swagger"],
   "license": "Unlicense",
-  "private": true,
-  "dependencies": {
+  "devDependencies": {
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
-    "oas3-tools": "^2.2.3"
+    "oas3-tools": "^2.2.3",
+    "nodemon": "^2.0.12"
   },
   "engines": {
     "node": "14.x"
