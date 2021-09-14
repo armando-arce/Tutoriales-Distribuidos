@@ -12,6 +12,11 @@ const loadBooks = () => {
 
 loadBooks();
 
+const saveBooks = () => {
+  let data = JSON.stringify(books)
+  fs.writeFileSync(__dirname + '/' + 'books.json', data)
+};
+
 /**
  * Delete a book by ID.
  *
@@ -20,7 +25,13 @@ loadBooks();
  **/
 exports.booksBookIdDELETE = function(bookId) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    let index = books.findIndex(i => i.id == bookId);
+    if (index == -1)
+      return resolve();
+    else {
+      books = books.filter(i => i.id != bookId);
+      saveBooks();
+    }
   });
 }
 
@@ -32,7 +43,7 @@ exports.booksBookIdDELETE = function(bookId) {
  **/
 exports.booksBookIdGET = function(bookId) {
   return new Promise(function(resolve, reject) {
-    let book = books.find(book => book.id == bookId);
+    let book = books.find(i => i.id == bookId);
     if (book == undefined)
       return resolve();
     else
@@ -50,7 +61,11 @@ exports.booksBookIdGET = function(bookId) {
  **/
 exports.booksBookIdPUT = function(body,bookId) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    let index = books.findIndex(i => i.id == bookId);
+    if (index == -1)
+      return resolve();
+    else
+      books[index] = body;
   });
 }
 
@@ -63,7 +78,11 @@ exports.booksBookIdPUT = function(body,bookId) {
  **/
 exports.booksPOST = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    let index = books.findIndex(i => i.id == bookId);
+    if (index != -1)
+      return resolve();
+    else
+      books.push(body);
   });
 }
 
