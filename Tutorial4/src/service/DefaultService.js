@@ -64,8 +64,10 @@ exports.booksBookIdPUT = function(body,bookId) {
     let index = books.findIndex(i => i.id == bookId);
     if (index == -1)
       return resolve();
-    else
+    else {
       books[index] = body;
+      saveBooks();
+    }
   });
 }
 
@@ -81,8 +83,10 @@ exports.booksPOST = function(body) {
     let index = books.findIndex(i => i.id == bookId);
     if (index != -1)
       return resolve();
-    else
+    else {
       books.push(body);
+      saveBooks();
+    }
   });
 }
 
