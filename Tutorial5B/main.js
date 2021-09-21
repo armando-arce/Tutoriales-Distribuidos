@@ -4,7 +4,7 @@ const express = require('express')
  
 const app = express()
 app.use(express.json())
-const port = process.env.PORT || 1337
+const port = process.env.PORT || 1338
 let authors = []
 
 const loadAuthors = () => {

@@ -32,9 +32,9 @@ function home() {
 		});
 }
 
-const booksApi = "https://faas-example.netlify.app";
-const authorsApi = "https://faas-example.netlify.app";
-const publishersApi = "https://faas-example.netlify.app";
+const booksApi = "http:localhost:1337";
+const authorsApi = "http:localhost:1338";
+const publishersApi = "http:localhost:1339";
 
 function init() {
 	router = new Navigo(null, false, '#!');
