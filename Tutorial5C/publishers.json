@@ -1,0 +1,16 @@
+[
+{
+  "id": 1,
+  "publisher": "John Wiley & Sons",
+  "country": "United States",
+  "founded": 1807,
+  "genere": "Academic"
+},
+{
+  "id": 2,
+  "publisher": "Pearson Education",
+  "country": "United Kingdom",
+  "founded": 1844,
+  "genere": "Education"
+}
+]

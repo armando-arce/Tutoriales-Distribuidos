@@ -1,0 +1,16 @@
+[
+{
+  "id": 1,
+  "author": "Abraham Silberschatz",
+  "nationality": "Israelis / American",
+  "birth_year": 1952,
+  "fields": "Database Systems, Operating Systems"
+},
+{
+  "id": 2,
+  "author": "Andrew S. Tanenbaum",
+  "nationality": "Dutch / American",
+  "birth_year": 1944,
+  "fields": "Distributed computing, Operating Systems"
+}
+]
