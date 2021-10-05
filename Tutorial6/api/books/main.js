@@ -1,10 +1,10 @@
 // main.js
+const express = require('express');
+const serverless = require('serverless-http');
+const app = express();
+const bodyParser = require('body-parser');
 const fs = require('fs')
-const express = require('express')
- 
-const app = express()
-app.use(express.json())
-const port = process.env.PORT || 1337
+
 let books = []
 
 const loadBooks = () => {
@@ -19,14 +19,7 @@ const saveBooks = () => {
   fs.writeFileSync(__dirname + '/' + 'books.json', data)
 }
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Content-Type', 'application/json');
-  next();
-});
+app.use(bodyParser);
 
 app.get('/book', (req, res) => {
   res.json(books);
@@ -69,7 +62,3 @@ app.delete('/book/:id', (req, res) => {
     saveBooks();
   }
 })
-
-app.listen(port, () => 
-  console.log(`Books Server listening on port ${port}`)
-)

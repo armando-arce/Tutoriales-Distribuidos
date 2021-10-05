@@ -1,10 +1,10 @@
 // main.js
+const express = require('express');
+const serverless = require('serverless-http');
+const app = express();
+const bodyParser = require('body-parser');
 const fs = require('fs')
-const express = require('express')
 
-const app = express()
-app.use(express.json())
-const port = process.env.PORT || 1339
 let publishers = []
 
 const loadPublishers = () => {
@@ -70,6 +70,4 @@ app.delete('/publisher/:id', (req, res) => {
   }
 })
 
-app.listen(port, () =>
-  console.log(`Publishers Server listening on port ${port}`)
-)
+module.exports.handler = serverless(app);

@@ -1,10 +1,10 @@
 // main.js
+const express = require('express');
+const serverless = require('serverless-http');
+const app = express();
+const bodyParser = require('body-parser');
 const fs = require('fs')
-const express = require('express')
- 
-const app = express()
-app.use(express.json())
-const port = process.env.PORT || 1338
+
 let authors = []
 
 const loadAuthors = () => {
@@ -19,14 +19,7 @@ const saveAuthors = () => {
   fs.writeFileSync(__dirname + '/' + 'authors.json', data)
 }
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Content-Type', 'application/json');
-  next();
-});
+app.use(bodyParser);
 
 app.get('/author', (req, res) => {
   res.json(authors);
@@ -70,6 +63,4 @@ app.delete('/author/:id', (req, res) => {
   }
 })
 
-app.listen(port, () => 
-  console.log(`Authors Server listening on port ${port}`)
-)
+module.exports.handler = serverless(app);
