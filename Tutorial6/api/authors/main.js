@@ -64,3 +64,7 @@ app.delete('/author/:id', (req, res) => {
 })
 
 module.exports.handler = serverless(app);
+
+app.listen(3000, () => {
+    console.info(`Listening on port 3000.`);
+});
