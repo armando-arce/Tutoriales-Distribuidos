@@ -21,11 +21,11 @@ const saveAuthors = () => {
 
 app.use(bodyParser);
 
-app.get('/author', (req, res) => {
+app.get('/', (req, res) => {
   res.json(authors);
 })
 
-app.get('/author/:id', (req, res) => {
+app.get('/:id', (req, res) => {
   let author = authors.find(i => i.id == req.params.id);
   if (author == undefined)
     res.status(404).send('Author not found');
@@ -33,7 +33,7 @@ app.get('/author/:id', (req, res) => {
     res.json(author);
 })
 
-app.post('/author/:id', (req, res) => {
+app.post('/:id', (req, res) => {
   let index = authors.findIndex(i => i.id == req.params.id);
   if (index != -1)
     res.status(404).send('Author already exits'); 
@@ -43,7 +43,7 @@ app.post('/author/:id', (req, res) => {
   }
 })
 
-app.put('/author', (req, res) => {
+app.put('/', (req, res) => {
   let index = authors.findIndex(i => i.id == req.params.id);
   if (index == -1)
     res.status(404).send('Author not found');
@@ -53,7 +53,7 @@ app.put('/author', (req, res) => {
   }
 })
 
-app.delete('/author/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
   let index = authors.findIndex(i => i.id == req.params.id);
   if (index == -1)
     return resolve();
@@ -64,7 +64,3 @@ app.delete('/author/:id', (req, res) => {
 })
 
 module.exports.handler = serverless(app);
-
-app.listen(3000, () => {
-    console.info(`Listening on port 3000.`);
-});

@@ -28,11 +28,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/publisher', (req, res) => {
+app.get('/', (req, res) => {
   res.json(publishers);
 })
 
-app.get('/publisher/:id', (req, res) => {
+app.get('/:id', (req, res) => {
   let publisher = publishers.find(i => i.id == req.params.id);
   if (publisher == undefined)
     res.status(404).send('Publisher not found');
@@ -40,7 +40,7 @@ app.get('/publisher/:id', (req, res) => {
     res.json(publisher);
 })
 
-app.post('/publisher/:id', (req, res) => {
+app.post('/:id', (req, res) => {
   let index = publishers.findIndex(i => i.id == req.params.id);
   if (index != -1)
     res.status(404).send('Publisher already exits');
@@ -50,7 +50,7 @@ app.post('/publisher/:id', (req, res) => {
   }
 })
 
-app.put('/publisher', (req, res) => {
+app.put('/', (req, res) => {
   let index = publishers.findIndex(i => i.id == req.params.id);
   if (index == -1)
     res.status(404).send('Publisher not found');
@@ -60,7 +60,7 @@ app.put('/publisher', (req, res) => {
   }
 })
 
-app.delete('/publisher/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
   let index = publishers.findIndex(i => i.id == req.params.id);
   if (index == -1)
     return resolve();
