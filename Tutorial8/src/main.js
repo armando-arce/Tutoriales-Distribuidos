@@ -5,6 +5,8 @@ import router from "./router";
 import './assets/css/normalize.css';
 import './assets/css/skeleton.css';
 
-createApp(App)
-  .use(router)
-  .mount("#app");
+const app = createApp(App);
+  
+app.config.globalProperties.url = 'https://bookstore-mongo.netlify.app';
+
+app.use(router).mount("#app");

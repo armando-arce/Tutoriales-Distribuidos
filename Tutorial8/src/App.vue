@@ -10,7 +10,7 @@
     <router-link class="three columns button button-primary" 
       to="/publisher">Publishers</router-link>
   </div>
-  <router-view />
+ <router-view />
   <div class="row">
     <button disabled="disabled" class="twelve columns button-primary">
       Copyright (c) 2020 - Armando Arce-Orozco

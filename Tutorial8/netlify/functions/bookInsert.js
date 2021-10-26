@@ -1,9 +1,14 @@
 "use strict"
 
-const clientPromise = require('./mongoDB')
+const clientPromise = require('./mongoDB');
+const headers = require('./headersCORS');
 
 exports.handler = async (event, context) => {
 
+  if (event.httpMethod == "OPTIONS") {
+    return { statusCode: 200, headers, body: "OK" };
+  }
+  
   try {
 	const client = await clientPromise;
 	const data = JSON.parse(event.body);
@@ -12,9 +17,9 @@ exports.handler = async (event, context) => {
 
 	await client.db("bookstore").collection("books").insertOne(data);
 
-    return { statusCode: 200, body: 'OK'};
+    return { statusCode: 200, headers, body: 'OK'};
   } catch (error) {
     console.log(error);
-    return { statusCode: 422, body: String(error) };
+    return { statusCode: 422, headers, body: JSON.stringify(error) };
   }
 };

@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     findBook: function(id) {
-      fetch('/.netlify/functions/bookFind/'+id,
+      fetch(this.url+'/.netlify/functions/bookFind/'+id,
       { headers: {'Accept': 'application/json'}})
       .then((response) => response.json())
       .then((items) => {
@@ -86,7 +86,7 @@ export default {
       })
     },
     updateBook: function(id) {
-      fetch('/.netlify/functions/bookUpdate/'+id,
+      fetch(this.url+'/.netlify/functions/bookUpdate/'+id,
         { headers: {'Content-Type':'application/json'},
           method: 'PUT',
           body: JSON.stringify(this.book)})
@@ -96,7 +96,7 @@ export default {
       )
     },
     createBook: function() {
-      fetch('/.netlify/functions/bookInsert',
+      fetch(this.url+'/.netlify/functions/bookInsert',
         { headers: {'Content-Type':'application/json'},
           method: 'POST',
           body: JSON.stringify(this.book)})

@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     allBooks() {
-      fetch('/.netlify/functions/bookFindAll',
+      fetch(this.url+'/.netlify/functions/bookFindAll',
         { headers: {'Accept': 'application/json'}})
         .then((response) => response.json())
         .then((items) => {
@@ -58,7 +58,7 @@ export default {
         })
      },
      deleteBook(id) {
-       fetch('/.netlify/functions/bookDelete/'+id,
+       fetch(this.url+'/.netlify/functions/bookDelete/'+id,
          { headers: {'Content-Type': 'application/json'},
            method: 'DELETE'})
           .then((items) => {
