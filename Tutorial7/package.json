@@ -4,6 +4,7 @@
     "mongodb": "latest",
    "express": "latest",
    "serverless-http": "latest",
-   "body-parser": "latest"
+   "body-parser": "latest",
+   "lambda-api": "latest"
   }
 }

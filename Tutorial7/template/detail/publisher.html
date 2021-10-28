@@ -1,11 +1,11 @@
-<h4 style="margin-top: 15px">{{ publisher }}</h4>
+<h4 style="margin-top: 15px">{{ name }}</h4>
 
 <h5>Publisher's details</h5>
 <form>
   <div class="row">
     <div class="six columns">
        <label for="idInput">ID</label>
-       <input class="u-full-width" id="_id" type="text" value="{{ _id }}" readonly/>
+       <input class="u-full-width" id="id" type="text" value="{{ id }}" readonly/>
     </div>
     <div class="six columns">
        <label for="countryInput">Country</label>
@@ -19,7 +19,7 @@
     </div>
     <div class="six columns">
        <label for="genereInput">Genere</label>
-       <input class="u-full-width" id="genere" type="text" value="{{ genere }}"  readonly/>
+       <input class="u-full-width" id="genere" type="text" value="{{ genere  }}"  readonly/>
     </div>
   </div>
 </form>
@@ -27,6 +27,6 @@
 <h5>Books</h5>
 <ul>
 {{#books}}
-  <li><a href="/#/bookById/?id={{book_id}}" data-navigo>{{title}}</li>
+  <li><a href="/#/bookById/{{book_id}}" data-navigo>{{title}}</li>
 {{/books}}
 </ul>

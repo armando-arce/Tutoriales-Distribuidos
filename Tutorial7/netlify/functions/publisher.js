@@ -1,32 +1,47 @@
-// main.js
+'use strict';
 const express = require('express');
 const serverless = require('serverless-http');
-const app = express();
+const exp = express();
 const bodyParser = require('body-parser');
-const fs = require('fs')
 
-let publishers = []
+let publishers = [
+  {
+    "id": "1",
+    "publisher": "John Wiley & Sons",
+    "country": "United States",
+    "founded": 1807,
+    "genere": "Academic",
+    "books": [
+      {
+        "book_id": 1,
+        "title": "Operating System Concepts"
+      },
+      {
+        "book_id": 2,
+        "title": "Database System Concepts"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "publisher": "Pearson Education",
+    "country": "United Kingdom",
+    "founded": 1844,
+    "genere": "Education",
+    "books": [
+      {
+        "book_id": 3,
+        "title": "Computer Networks"
+      },
+      {
+        "book_id": 4,
+        "title": "Modern Operating Systems"
+      }
+    ]
+  }
+];
 
-const loadPublishers = () => {
-  fs.readFile(__dirname + '/' + 'publishers.json', 'utf8', (err, data) => {
-    publishers = JSON.parse(data)
-  });
-}
-loadPublishers()
-
-const savePublishers = () => {
-  let data = JSON.stringify(publishers)
-  fs.writeFileSync(__dirname + '/' + 'publishers.json', data)
-}
-
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Content-Type', 'application/json');
-  next();
-});
+const app = express.Router();
 
 app.get('/', (req, res) => {
   res.json(publishers);
@@ -70,4 +85,8 @@ app.delete('/:id', (req, res) => {
   }
 })
 
-module.exports.handler = serverless(app);
+exp.use(bodyParser.json());
+exp.use('/.netlify/functions/publisher', app);
+
+module.exports = exp;
+module.exports.handler = serverless(exp);

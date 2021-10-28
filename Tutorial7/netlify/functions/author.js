@@ -1,25 +1,47 @@
-// main.js
+'use strict';
 const express = require('express');
 const serverless = require('serverless-http');
-const app = express();
+const exp = express();
 const bodyParser = require('body-parser');
-const fs = require('fs')
 
-let authors = []
+let authors = [
+  {
+    "id": "1",
+    "author": "Abraham Silberschatz",
+    "nationality": "Israelis / American",
+    "birth_year": 1952,
+    "fields": "Database Systems, Operating Systems",
+    "books": [
+      {
+        "book_id": 1,
+        "title": "Operating System Concepts"
+      },
+      {
+        "book_id": 2,
+        "title": "Database System Concepts"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "author": "Andrew S. Tanenbaum",
+    "nationality": "Dutch / American",
+    "birth_year": 1944,
+    "fields": "Distributed computing, Operating Systems",
+    "books": [
+      {
+        "book_id": 3,
+        "title": "Computer Networks"
+      },
+      {
+        "book_id": 4,
+        "title": "Modern Operating Systems"
+      }
+    ]
+  }
+];
 
-const loadAuthors = () => {
-  fs.readFile(__dirname + '/' + 'authors.json', 'utf8', (err, data) => {
-    authors = JSON.parse(data)
-  });
-}
-loadAuthors()
-
-const saveAuthors = () => {
-  let data = JSON.stringify(authors)
-  fs.writeFileSync(__dirname + '/' + 'authors.json', data)
-}
-
-app.use(bodyParser);
+const app = express.Router();
 
 app.get('/', (req, res) => {
   res.json(authors);
@@ -39,7 +61,6 @@ app.post('/:id', (req, res) => {
     res.status(404).send('Author already exits'); 
   else {
     authors.push(body);
-    saveAuthors();
   }
 })
 
@@ -49,7 +70,6 @@ app.put('/', (req, res) => {
     res.status(404).send('Author not found');
   else {
     authors[index] = body;
-    saveAuthors();
   }
 })
 
@@ -59,8 +79,11 @@ app.delete('/:id', (req, res) => {
     return resolve();
   else {
     authors = authors.filter(i => i.id != req.params.id);
-    saveAuthors();
   }
 })
 
-module.exports.handler = serverless(app);
+exp.use(bodyParser.json());
+exp.use('/.netlify/functions/author', app);
+
+module.exports = exp;
+module.exports.handler = serverless(exp);

@@ -1,7 +1,7 @@
-// main.js
+'use strict';
 const express = require('express');
 const serverless = require('serverless-http');
-const app = express();
+const exp = express();
 const bodyParser = require('body-parser');
 
 let books = [
@@ -55,7 +55,7 @@ let books = [
 }
 ];
 
-app.use(bodyParser);
+const app = express.Router();
 
 app.get('/', (req, res) => {
   res.json(books);
@@ -96,4 +96,8 @@ app.delete('/:id', (req, res) => {
   }
 });
 
-module.exports.handler = serverless(app);
+exp.use(bodyParser.json());
+exp.use('/.netlify/functions/book', app);
+
+module.exports = exp;
+module.exports.handler = serverless(exp);
